@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vmarquezv.dev.calculateShipping.exception.InvalidRequestException;
 import com.vmarquezv.dev.calculateShipping.exception.ObjectNotFoundException;
 import com.vmarquezv.dev.calculateShipping.model.ShippingResponse;
 import com.vmarquezv.dev.calculateShipping.service.CalculateShippingService;
@@ -21,10 +22,16 @@ public class CalculateShippingController {
 	private CalculateShippingService service;
 	
 	@PostMapping(consumes = "application/json", produces = "application/json")
-	public ResponseEntity<ShippingResponse> getCep(@RequestBody Map<String, Object> cepRequest) {
-		String cep = cepRequest.get("cep").toString();
+	public ResponseEntity<ShippingResponse> getCep(@RequestBody Map<String, String> cepRequest) {
+		String cep;
 		
-		if(cep == "" || cep.equals(null)) throw new ObjectNotFoundException("CEP - INVALID");
+		try {
+			cep = cepRequest.get("cep").toString();
+		} catch (Exception e) {
+			throw new InvalidRequestException("INVALID REQUEST");
+		}
+		
+		if(cep == "" || cep.equals(null)) throw new ObjectNotFoundException("CEP - IS_NULL");
 		
 		return ResponseEntity.ok(service.requestCep(cep));
 	}

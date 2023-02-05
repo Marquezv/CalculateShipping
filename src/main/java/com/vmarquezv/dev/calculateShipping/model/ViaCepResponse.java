@@ -1,14 +1,13 @@
 package com.vmarquezv.dev.calculateShipping.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Shipping {
+@ToString
+public class ViaCepResponse {
 	
 	private String cep;
 	private String logradouro;
@@ -19,5 +18,4 @@ public class Shipping {
 	private String gia;
 	private String ddd;
 	private String siafi;
-	
 }

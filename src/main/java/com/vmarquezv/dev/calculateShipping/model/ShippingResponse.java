@@ -15,7 +15,7 @@ public class ShippingResponse {
 		super();
 		this.cep = viaCepResponse.getCep();
 		this.rua = viaCepResponse.getLogradouro();
-		this.complemento = null;
+		this.complemento = viaCepResponse.getComplemento();
 		this.bairro = viaCepResponse.getBairro();
 		this.cidade = viaCepResponse.getLocalidade();
 		this.estado = viaCepResponse.getUf();
@@ -27,5 +27,6 @@ public class ShippingResponse {
 	private String bairro;
 	private String cidade;
 	private String estado;
+	private String regiao;
 	private BigDecimal frete;
 }

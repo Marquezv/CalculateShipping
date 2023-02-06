@@ -26,18 +26,19 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler{
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
+
 	
-	@ExceptionHandler(InvalidRequestException.class)
-	public ResponseEntity<StandardError>invalidRequestException(InvalidRequestException err,  HttpServletRequest req ){
+	@ExceptionHandler(BadRequestException.class)
+	public ResponseEntity<StandardError>badRequestException(BadRequestException err,  HttpServletRequest req ){
 		StandardError error = new StandardError(
 								Timestamp.valueOf(LocalDateTime.now()),
-								HttpStatus.NOT_ACCEPTABLE.value(),
+								HttpStatus.BAD_REQUEST.value(),
 								err.getMessage(),
 								req.getRequestURI()
 				
 				);
 		
-		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(error);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
-
 }
+

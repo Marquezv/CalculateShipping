@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.vmarquezv.dev.calculateShipping.exception.BadRequestException;
 import com.vmarquezv.dev.calculateShipping.exception.ObjectNotFoundException;
+import com.vmarquezv.dev.calculateShipping.model.CepRequest;
 import com.vmarquezv.dev.calculateShipping.model.ShippingResponse;
 import com.vmarquezv.dev.calculateShipping.model.ViaCepResponse;
 
@@ -20,12 +22,13 @@ public class CalculateShippingService {
 	@Autowired
 	private CheckCep checkCpf;
 	
-	public ShippingResponse requestCep(String cep) {
+	public ShippingResponse requestCep(CepRequest cepRequest) {
+		String cep = cepRequest.getCep();
 		
 		cep = cep.replaceAll("[^a-zA-Z0-9]", "");
 		if(!checkCpf.isValid(cep)) {
 			
-			throw new ObjectNotFoundException("CEP - INVALID_CEP");
+			throw new BadRequestException();
 		}
 		
 		String url = MessageFormat.format(
@@ -38,7 +41,7 @@ public class CalculateShippingService {
 		
 		ViaCepResponse response = restTemplate.getForObject(url, ViaCepResponse.class);
 		
-		if(obj.equals("{erro=true}")) throw new ObjectNotFoundException("CEP - NOT_FOUND");
+		if(obj.equals("{erro=true}")) throw new ObjectNotFoundException();
 		
 		return toShippingResponse(response);
 	}

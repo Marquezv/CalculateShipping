@@ -1,7 +1,10 @@
 package com.vmarquezv.dev.calculateShipping.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
+
+import java.text.MessageFormat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,18 +37,17 @@ public class CalculateShippingServiceTest {
 	private ViaCepResponse viaCepResponse;
 	private CepRequest cepRequest;
 	
-	private final String CEP = "01001000";
-	
+	private final String CEP = "01001-000";
+	private final String URL = MessageFormat.format("https://viacep.com.br/ws/{0}/json/", CEP);
 	
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
 		startUser();
 	}
-
 	
 	@Test
-	private void whenCalculateShippingCalled() {
+	public void whenCalculateShippingCalled() {
 		when(service.calculateShipping(cepRequest))
 				.thenReturn(new ShippingResponse(viaCepResponse));
 		
@@ -54,17 +56,25 @@ public class CalculateShippingServiceTest {
 	}
 	
 	@Test
-	private void whenToShippingResponse() {
+	public void whenToShippingResponse() {
 		when(service.toShippingResponse(viaCepResponse)).thenReturn(shippingResponse);
 		
 		ShippingResponse response = service.toShippingResponse(viaCepResponse);
 	    assertEquals(response, shippingResponse);
 	}
 	
+	@Test
+	public void whenRequestCepResponse() {
+		lenient().when(restTemplate.getForObject(URL, ViaCepResponse.class)).thenReturn(viaCepResponse);
+		
+		ViaCepResponse response = service.requestCep(CEP);
+		
+	    assertEquals(response, viaCepResponse);
+	}
 	
 	
 	private void startUser() {
-		viaCepResponse = new ViaCepResponse(CEP, "Praça da Sé", "lado ímpar", "Sé", 	"São Paulo", "SP", "3550308", "1004", "11", "7107");
+		viaCepResponse = new ViaCepResponse(CEP, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP", "3550308", "1004", "11", "7107");
 		shippingResponse = new ShippingResponse(viaCepResponse);
 		cepRequest = new CepRequest(CEP);
 	}

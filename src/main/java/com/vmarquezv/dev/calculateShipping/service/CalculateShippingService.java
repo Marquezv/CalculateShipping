@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.vmarquezv.dev.calculateShipping.exception.BadRequestException;
 import com.vmarquezv.dev.calculateShipping.exception.ObjectNotFoundException;
-import com.vmarquezv.dev.calculateShipping.model.CepRequest;
+import com.vmarquezv.dev.calculateShipping.model.Shipping;
 import com.vmarquezv.dev.calculateShipping.model.ShippingResponse;
 import com.vmarquezv.dev.calculateShipping.model.ViaCepResponse;
 import com.vmarquezv.dev.calculateShipping.model.details.ShippingValue;
@@ -22,19 +22,14 @@ public class CalculateShippingService  {
 	private final RestTemplate restTemplate = new RestTemplate();
 
 	@Autowired
-	private CheckCep checkCep;
+	private CepService cepService;
 	
-	public ShippingResponse calculateShipping(CepRequest cepRequest) {
-		String cep = cepRequest.getCep().replaceAll("[^a-zA-Z0-9]", "");
+	public ShippingResponse calculateShipping(String cepRequest) {
+		String cep = cepRequest.replaceAll("[^a-zA-Z0-9]", "");
 		
-		if(checkCep.isValid(cep)) throw new BadRequestException();
+		if(cepService.isValid(cep)) throw new BadRequestException();
 		
-		ViaCepResponse viaCepResponse =	requestCep(cep);
-		
-		toShippingResponse(viaCepResponse);
-		
-		return toShippingResponse(viaCepResponse);
-		
+		return toShippingResponse(requestCep(cep));
 	}
 	
 	protected ViaCepResponse requestCep(String cep) {
@@ -50,13 +45,10 @@ public class CalculateShippingService  {
 	
 	
 	protected ShippingResponse toShippingResponse(ViaCepResponse viaCep) {
-		ShippingResponse response = new ShippingResponse(viaCep);
-		ShippingValue shippingData = new Shipping(viaCep.getCep()).shippingCalculate();
 		
-		response.setFrete(shippingData.getFrete());
-		response.setRegiao(shippingData.getRegiao());
+		ShippingValue shippingValue = new Shipping().calculate(viaCep.getCep());
 		
-		return response;
+		return new ShippingResponse(viaCep, shippingValue);
 	}
 	
 }

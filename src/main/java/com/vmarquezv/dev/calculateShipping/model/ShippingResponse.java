@@ -2,6 +2,8 @@ package com.vmarquezv.dev.calculateShipping.model;
 
 import java.math.BigDecimal;
 
+import com.vmarquezv.dev.calculateShipping.model.details.ShippingValue;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -9,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class ShippingResponse {
 	
-	public ShippingResponse(ViaCepResponse viaCepResponse) {
+	public ShippingResponse(ViaCepResponse viaCepResponse, ShippingValue shippingValue) {
 		super();
 		this.cep = viaCepResponse.getCep();
 		this.rua = viaCepResponse.getLogradouro();
@@ -17,8 +19,8 @@ public class ShippingResponse {
 		this.bairro = viaCepResponse.getBairro();
 		this.cidade = viaCepResponse.getLocalidade();
 		this.estado = viaCepResponse.getUf();
-		this.frete = null;
-		this.regiao = null;
+		this.frete = shippingValue.getFrete();
+		this.regiao = shippingValue.getRegiao();
 	}
 	private String cep;
 	private String rua;

@@ -11,14 +11,17 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.vmarquezv.dev.calculateShipping.model.details.ShippingValue;
+
 @ExtendWith(MockitoExtension.class)
-public class CheckCepTest {
+public class ShippingServiceTest {
+
 	
 	@Spy
 	@InjectMocks
-	private CheckCep service;
+	private ShippingService service;
 	
-	private final String CEP = "01001-000";
+	private final String CEP = "74550-167";
 
 	
 	@BeforeEach
@@ -26,15 +29,19 @@ public class CheckCepTest {
 		MockitoAnnotations.openMocks(this);
 	}
 	
+	
 	@Test
-	public void whenIsValidCalled() {
-		when(service.isValid(CEP)).thenReturn(true);
+	public void whenCalculateCalled() {
+		when(service.calculate(CEP)).thenReturn(ShippingValue.CENTROOESTE);
 		
-		boolean isValid = service.isValid(CEP);
-		assertEquals(isValid, true);
+	
+		ShippingValue response = service.calculate(CEP);
+		
+		assertEquals(response, ShippingValue.CENTROOESTE);
+		
 	}
 	
 	
-}
-
 	
+	
+}

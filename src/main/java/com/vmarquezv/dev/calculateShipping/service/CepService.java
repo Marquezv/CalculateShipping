@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CheckCep {
+public class CepService {
 	
 	public boolean isValid(String cep) {
 		boolean result = false;

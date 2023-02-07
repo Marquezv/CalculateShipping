@@ -16,9 +16,9 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
-import com.vmarquezv.dev.calculateShipping.model.CepRequest;
 import com.vmarquezv.dev.calculateShipping.model.ShippingResponse;
 import com.vmarquezv.dev.calculateShipping.model.ViaCepResponse;
+import com.vmarquezv.dev.calculateShipping.model.details.ShippingValue;
 
 @ExtendWith(MockitoExtension.class)
 public class CalculateShippingServiceTest {
@@ -27,7 +27,7 @@ public class CalculateShippingServiceTest {
 	private RestTemplate restTemplate;
 	
 	@Mock
-	private CheckCep checkCep;
+	private CepService checkCep;
 	
 	@Spy
 	@InjectMocks
@@ -35,7 +35,6 @@ public class CalculateShippingServiceTest {
 	
 	private ShippingResponse shippingResponse;
 	private ViaCepResponse viaCepResponse;
-	private CepRequest cepRequest;
 	
 	private final String CEP = "01001-000";
 	private final String URL = MessageFormat.format("https://viacep.com.br/ws/{0}/json/", CEP);
@@ -48,10 +47,10 @@ public class CalculateShippingServiceTest {
 	
 	@Test
 	public void whenCalculateShippingCalled() {
-		when(service.calculateShipping(cepRequest))
-				.thenReturn(new ShippingResponse(viaCepResponse));
+		when(service.calculateShipping(CEP))
+				.thenReturn(new ShippingResponse(viaCepResponse, ShippingValue.SUDESTE));
 		
-		ShippingResponse response = service.calculateShipping(cepRequest);
+		ShippingResponse response = service.calculateShipping(CEP);
 	    assertEquals(response, shippingResponse);
 	}
 	
@@ -75,8 +74,7 @@ public class CalculateShippingServiceTest {
 	
 	private void startUser() {
 		viaCepResponse = new ViaCepResponse(CEP, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP", "3550308", "1004", "11", "7107");
-		shippingResponse = new ShippingResponse(viaCepResponse);
-		cepRequest = new CepRequest(CEP);
+		shippingResponse = new ShippingResponse(viaCepResponse, ShippingValue.SUDESTE);
 	}
 	
 }

@@ -1,12 +1,14 @@
 package com.vmarquezv.dev.calculateShipping.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Getter
-@Setter
+@Data
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class CepRequest {
 
 	private String cep;

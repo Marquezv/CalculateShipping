@@ -1,5 +1,7 @@
 package com.vmarquezv.dev.calculateShipping.controller;
 
+import java.text.MessageFormat;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,10 +35,13 @@ public class CalculateShippingController {
 	@ApiOperation(value = "CalculateShipping - calculate frete with CEP")
 	public ResponseEntity<ShippingResponse> getCep(@RequestBody CepRequest cepRequest) {
 		String cep = cepRequest.getCep();
+		String url = MessageFormat.format(
+				"https://viacep.com.br/ws/{0}/json/", 
+				cep);
 		
 		if(cep == null || cep.isEmpty()) throw new BadRequestException();
 		
-		return ResponseEntity.ok(service.requestCep(cepRequest));
+		return ResponseEntity.ok(service.calculateShipping(cepRequest));
 	}
 	
 	

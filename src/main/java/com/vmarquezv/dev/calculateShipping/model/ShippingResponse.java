@@ -2,12 +2,10 @@ package com.vmarquezv.dev.calculateShipping.model;
 
 import java.math.BigDecimal;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.ToString;
 
-@Getter
-@Setter
+@Data
 @ToString
 public class ShippingResponse {
 	
@@ -20,6 +18,7 @@ public class ShippingResponse {
 		this.cidade = viaCepResponse.getLocalidade();
 		this.estado = viaCepResponse.getUf();
 		this.frete = null;
+		this.regiao = null;
 	}
 	private String cep;
 	private String rua;

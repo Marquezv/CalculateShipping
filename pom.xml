@@ -15,6 +15,7 @@
 	<description>API for calculate shipping</description>
 	<properties>
 		<java.version>11</java.version>
+		<cucumber.version>6.9.1</cucumber.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -39,12 +40,30 @@
 		    <version>3.0.0</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
 		<dependency>
-		    <groupId>io.springfox</groupId>
-		    <artifactId>springfox-swagger-ui</artifactId>
-		    <version>2.9.2</version>
+		    <groupId>org.springdoc</groupId>
+		    <artifactId>springdoc-openapi-ui</artifactId>
+		    <version>1.6.9</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>${cucumber.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-junit</artifactId>
+		    <version>${cucumber.version}</version>
 		</dependency>
 
+		
 	</dependencies>
 
 	<build>

@@ -34,7 +34,6 @@ public class ShippingServiceTest {
 	public void whenCalculateCalled() {
 		when(service.calculate(CEP)).thenReturn(ShippingValue.CENTROOESTE);
 		
-	
 		ShippingValue response = service.calculate(CEP);
 		
 		assertEquals(response, ShippingValue.CENTROOESTE);

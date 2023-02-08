@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vmarquezv.dev.calculateShipping.exception.BadRequestException;
-import com.vmarquezv.dev.calculateShipping.model.CepRequest;
 import com.vmarquezv.dev.calculateShipping.model.ShippingResponse;
 import com.vmarquezv.dev.calculateShipping.service.CalculateShippingService;
 
@@ -19,7 +18,7 @@ import io.swagger.annotations.ApiResponses;
 
 
 @RestController
-@RequestMapping("/v1/consulta-endereco")
+@RequestMapping("")
 public class CalculateShippingController {
 	
 	@Autowired
@@ -31,8 +30,7 @@ public class CalculateShippingController {
 			@ApiResponse(code = 400, message = "CEP - INCORRECT_REQUEST")
 	})
 	@ApiOperation(value = "CalculateShipping - calculate frete with CEP")
-	public ResponseEntity<ShippingResponse> getCep(@RequestBody CepRequest cepRequest) {
-		String cep = cepRequest.getCep();
+	public ResponseEntity<ShippingResponse> getCep(@RequestBody String cep) {
 		
 		if(cep == null || cep.isEmpty()) throw new BadRequestException();
 		

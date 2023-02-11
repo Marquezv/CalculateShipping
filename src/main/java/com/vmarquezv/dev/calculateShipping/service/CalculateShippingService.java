@@ -27,9 +27,11 @@ public class CalculateShippingService  {
 	public ShippingResponse calculateShipping(String cepRequest) {
 		String cep = cepRequest.replaceAll("[^a-zA-Z0-9]", "");
 		
-		if(cepService.isValid(cep)) throw new BadRequestException();
+		if(!cepService.isValid(cep)) throw new BadRequestException();
 		
-		return toShippingResponse(requestCep(cep));
+		ViaCepResponse viaCepResponse = requestCep(cep);
+		
+		return toShippingResponse(viaCepResponse);
 	}
 	
 	protected ViaCepResponse requestCep(String cep) {

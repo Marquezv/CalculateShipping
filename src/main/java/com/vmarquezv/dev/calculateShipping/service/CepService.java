@@ -10,7 +10,7 @@ public class CepService {
 	
 	public boolean isValid(String cep) {
 		boolean result = false;
-		if ( cep == null || "".equals(cep) || cep.length() < 9) {
+		if ((cep == null || "".equals(cep)) & cep.length() < 9) {
 			result = true;
 		} else {
 			Pattern pattern = Pattern.compile("^(([0-9]{2}\\.[0-9]{3}-[0-9]{3})|([0-9]{2}[0-9]{3}-[0-9]{3})|([0-9]{8}))$");  

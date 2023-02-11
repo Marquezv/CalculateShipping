@@ -1,6 +1,8 @@
 server:
-  port: 8080
+    port: 8080
+    contextPath: /v1/consulta-endereco
 
+    
 spring:
     mvc:
       pathmatch:

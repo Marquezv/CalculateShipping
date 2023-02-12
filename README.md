@@ -3,7 +3,7 @@
 ### API to search CEP coding and calculate shipping
 
 ## Desenvolved with:
-    - SpringBoot 2.7.9
+    - Spring 2.7.9
     - Maven 3.8.6
     - Java 11
     - Swagger 2.9.2

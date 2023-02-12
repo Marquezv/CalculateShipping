@@ -48,7 +48,7 @@ mvn spring-boot:run
 
     ├── config                    # Configuration files
     ├── model                     # Controll models
-    ├── exceptions                    # Exceptions trataments a
+    ├── exceptions                    # Exceptions trataments 
     ├── service                   # Executing logical business rules
     |
     └── CalculateShippingApplication.java       # Main Class

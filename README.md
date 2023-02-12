@@ -24,7 +24,7 @@ Calculate Shipping is a simple Rest API to calculate shipping according to zip c
 
 ### Download 📥
 ```sh
-git clone git@github.com:Marquezv/AssemblyVotes.git -b local
+git clone https://github.com/Marquezv/CalculateShipping.git
 ```
 
 ## Start Server 🌐

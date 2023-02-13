@@ -8,6 +8,7 @@
     - Java 11
     - Swagger 2.9.2
     - Cocumber 6.9.1
+    - JUnit 5
 
 
 ## About
